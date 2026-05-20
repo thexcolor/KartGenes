@@ -32,6 +32,8 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            /* TRICK 1: CAD-Style Crosshair Cursor */
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none' stroke='%23E10600' stroke-width='1'><line x1='16' y1='0' x2='16' y2='32'/><line x1='0' y1='16' x2='32' y2='16'/></svg>") 16 16, auto;
         }
 
         h1, h2, h3, h4 {
@@ -41,23 +43,37 @@
             line-height: 1.1;
         }
 
+        /* TRICK 3: Telemetry Scroll Progress Bar */
+        #telemetry-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100vh;
+            background-color: var(--kg-red);
+            transform: scaleY(0);
+            transform-origin: top;
+            z-index: 2000;
+            will-change: transform;
+        }
+
         /* --- NAVIGATION --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 5%;
-            background-color: var(--kg-white);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid #EAEAEA;
-            position: fixed; /* Changed to fixed for scrolling */
+            position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
         }
 
-        /* --- LOGO SIZING --- */
         img.nav-logo, img.footer-logo {
-            height: 100px;
+            height: 120px;
             width: auto;
             cursor: pointer;
         }
@@ -79,12 +95,10 @@
             transition: color 0.2s ease;
             position: relative;
         }
-
         .nav-links a:hover { color: var(--kg-red); }
 
-        /* --- SECTION PADDING FOR FIXED NAV --- */
         .page-section {
-            padding-top: 80px; /* Offsets the fixed header so content isn't hidden */
+            padding-top: 100px;
             min-height: 80vh;
         }
 
@@ -109,8 +123,20 @@
         .header-accent { color: var(--kg-red); }
         .drop-line { width: 4px; height: 60px; background-color: var(--kg-red); margin-bottom: 1rem; }
 
+        /* TRICK 4: Snap-to-Grid Sequential Loading States */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* --- PAGE 1: HOME --- */
-        .hero { position: relative; height: 100vh; background-color: var(--kg-black); display: flex; align-items: center; padding: 0 5%; overflow: hidden; margin-top: -80px; /* pull up under nav initially */ }
+        .hero { position: relative; height: 100vh; background-color: var(--kg-black); display: flex; align-items: center; padding: 0 5%; overflow: hidden; margin-top: -80px; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('images/hero-bg.png') center/cover; opacity: 0.3; }
         .hero-content { position: relative; z-index: 2; margin-top: 80px;}
         .hero h1 { color: var(--kg-white); font-size: clamp(3rem, 6vw, 6rem); margin-bottom: 1rem; }
@@ -125,18 +151,25 @@
         .stat-card h3 { font-size: 3rem; margin-bottom: 0.5rem; }
         .stat-card p { color: var(--kg-grey); font-family: var(--font-head); letter-spacing: 1px; font-size: 0.9rem; }
 
-        /* --- PAGE 3: EXECUTION (ROSTER & PROCESS) --- */
+        /* --- PAGE 3: EXECUTION --- */
         .roster-wrapper { padding: 6rem 5%; display: flex; flex-direction: column; gap: 6rem; }
-        
         .roster-block { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
         .roster-block.reverse { flex-direction: row-reverse; }
-        
         .roster-text { flex: 1; min-width: 300px; }
         .roster-text p { margin-bottom: 1rem; color: #333; }
         
-        .roster-image { flex: 1; min-width: 300px; height: 500px; background-color: #111; background-size: cover; background-position: center; border: 1px solid var(--kg-black); position: relative; }
+        .roster-image { 
+            flex: 1; 
+            min-width: 300px; 
+            height: 500px; 
+            background-color: #111; 
+            background-size: cover; 
+            background-position: center; 
+            border: 1px solid var(--kg-black); 
+            position: relative; 
+            overflow: hidden; 
+        }
         
-        /* Red architectural accent corner */
         .roster-image::after {
             content: '';
             position: absolute;
@@ -144,10 +177,35 @@
             width: 40px; height: 40px;
             background: var(--kg-red);
             clip-path: polygon(100% 0, 0 100%, 100% 100%);
+            z-index: 3;
         }
 
         .img-kris { background-image: url('images/roster-kris.png'); border-color: var(--kg-red); }
         .img-architect { background-image: url('images/roster-architect.png'); }
+
+        /* TRICK 2: Technical Data Overlay on Hover */
+        .tech-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            color: var(--kg-white);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-family: var(--font-head);
+            z-index: 2;
+        }
+        .roster-image:hover .tech-overlay, .fleet-image:hover .tech-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tech-overlay h4 { color: var(--kg-red); margin-bottom: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;}
+        .tech-overlay ul { list-style: none; }
+        .tech-overlay ul li { font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 0.5rem; color: var(--kg-grey); }
         
         .process-banner { background-color: #F5F5F5; padding: 6rem 5%; text-align: center; }
         .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
@@ -155,9 +213,9 @@
         .process-step:hover { border-color: var(--kg-red); }
         .process-step h4 { margin-bottom: 1rem; }
 
-        /* --- PAGE 4: OPERATIONS (TRACKSIDE & FLEET) --- */
+        /* --- PAGE 4: OPERATIONS --- */
         .fleet-section { display: grid; grid-template-columns: 1fr 1fr; }
-        .fleet-image { height: 600px; background: #222 url('images/fleet-transit.png') center/cover; }
+        .fleet-image { height: 600px; background: #222 url('images/fleet-transit.png') center/cover; position: relative; overflow: hidden; }
         .fleet-text { padding: 6rem 10%; display: flex; flex-direction: column; justify-content: center; background: var(--kg-black); color: var(--kg-white); }
         .fleet-text h2 { margin-bottom: 1.5rem; }
         .fleet-text p { color: var(--kg-grey); margin-bottom: 1.5rem; }
@@ -166,6 +224,7 @@
         footer { background: var(--kg-black); color: var(--kg-grey); text-align: center; padding: 4rem 5%; border-top: 1px solid #222; font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px; }
         
         @media (max-width: 768px) {
+            body { cursor: auto !important; } /* Disable custom cursor on mobile touch screens */
             .nav-links { display: none; }
             .dna-grid, .stats-grid, .fleet-section { grid-template-columns: 1fr; }
             .roster-block.reverse { flex-direction: column; }
@@ -174,6 +233,8 @@
     </style>
 </head>
 <body>
+
+    <div id="telemetry-bar"></div>
 
     <nav>
         <a href="#home"><img src="images/logo1.png" alt="KartGenes Logo" class="nav-logo"></a>
@@ -187,7 +248,7 @@
 
     <header id="home" class="hero">
         <div class="hero-bg"></div>
-        <div class="hero-content">
+        <div class="hero-content reveal-element">
             <div class="drop-line"></div>
             <h1>BUILT TO<br>EVOLVE.</h1>
             <p>Performance requires patience.</p>
@@ -197,16 +258,16 @@
 
     <section id="dna" class="page-section">
         <div class="dna-grid">
-            <div>
+            <div class="reveal-element">
                 <h2>PRACTICE <br><span class="header-accent">PATIENCE.</span></h2>
             </div>
-            <div class="dna-manifesto">
+            <div class="dna-manifesto reveal-element">
                 <p>Motorsport is too often driven by erratic, unfiltered passion. KartGenes operates on a different frequency. We believe that true performance requires absolute discipline. It is about removing the emotion from the equation and focusing entirely on the process.</p>
                 <p>We practice patience. We trust in the mechanics of compounding progress—lap after lap, step after step, millimeter by millimeter. Speed is simply the byproduct of flawless, patient execution.</p>
             </div>
         </div>
         
-        <div class="stats-grid">
+        <div class="stats-grid reveal-element">
             <div class="stat-card">
                 <h3>40+</h3>
                 <p>YEARS OF GLOBAL KARTING HERITAGE</p>
@@ -222,42 +283,62 @@
         <div class="roster-wrapper">
             
             <div class="roster-block">
-                <div class="roster-text">
+                <div class="roster-text reveal-element">
                     <div class="drop-line"></div>
                     <h2>THE DRIVER:<br> <span class="header-accent">KRIS (KONSTANTIN)</span></h2>
                     <br>
                     <p>Philosophy means nothing without execution. On the track, Kris embodies the KartGenes standard. As a competitor, his development is the physical manifestation of our core thesis: discipline yields results.</p>
                     <p>Every apex is a calculation. Every straight is a moment of patience. Kris’s trajectory is built on consistent, compounding progress rather than erratic surges of passion.</p>
                 </div>
-                <div class="roster-image img-kris"></div>
+                <div class="roster-image img-kris reveal-element">
+                    <div class="tech-overlay">
+                        <h4>// DRIVER_SPEC_DATA</h4>
+                        <ul>
+                            <li>// STATUS: COMPETITION ACTIVE</li>
+                            <li>// PARAMETER: HIGH-PRECISION APEX APPARATUS</li>
+                            <li>// PLATFORM: OTK CHASSIS TUNED</li>
+                            <li>// MANTRA: PRACTICE PATIENCE</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="roster-block reverse">
-                <div class="roster-text">
+                <div class="roster-text reveal-element">
                     <div class="drop-line" style="background-color: var(--kg-black);"></div>
                     <h2>THE ARCHITECT:<br> <span class="header-accent">FOUNDER</span></h2>
                     <br>
                     <p>Forged across two continents, the foundation of KartGenes rests on over 40 years of trackside heritage. But motorsport requires more than just mechanical understanding.</p>
                     <p>Operating with a Pedagogue-Electrical Engineering discipline, and backed by over 25 years of master-level graphic design, aesthetics and reliability are never separated. This is visual engineering. From the exactitude of a plotter blade to the tuning of a steering column, the architect builds the infrastructure of realization.</p>
                 </div>
-                <div class="roster-image img-architect"></div>
+                <div class="roster-image img-architect reveal-element">
+                    <div class="tech-overlay">
+                        <h4>// ENGINEER_SPEC_DATA</h4>
+                        <ul>
+                            <li>// DEPT: VISUAL ENGINEERING STUDIO</li>
+                            <li>// METHODOLOGY: UNCOMPROMISING VECTORIZATION</li>
+                            <li>// DISCIPLINE: PEDAGOGUE-ELECTRICAL ENG.</li>
+                            <li>// EXP: 25+ YEARS LAYER ARCHEOLOGY</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
         </div>
 
         <div class="process-banner">
-            <h2>VISUAL <span class="header-accent">ENGINEERING</span></h2>
-            <p style="margin-top: 1rem;">We do not separate aesthetics from performance. We are architects of realization.</p>
+            <h2 class="reveal-element">VISUAL <span class="header-accent">ENGINEERING</span></h2>
+            <p class="reveal-element" style="margin-top: 1rem;">We do not separate aesthetics from performance. We are architects of realization.</p>
             <div class="process-grid">
-                <div class="process-step">
+                <div class="process-step reveal-element">
                     <h4>01. IDEATION</h4>
                     <p>Conceptualizing aerodynamics and brand identity using advanced AI frameworks as a baseline foundation.</p>
                 </div>
-                <div class="process-step">
+                <div class="process-step reveal-element">
                     <h4>02. PRECISION MODELING</h4>
                     <p>Executing uncompromising manual vectorization and bespoke 3D modeling for critical helmet and livery assets.</p>
                 </div>
-                <div class="process-step">
+                <div class="process-step reveal-element">
                     <h4>03. APPLICATION</h4>
                     <p>Demanding the same rigorous technical exactitude from a high-performance vinyl wrap application as we do on the track.</p>
                 </div>
@@ -267,13 +348,23 @@
 
     <section id="operations" class="page-section" style="padding-top: 0;">
         <div class="fleet-section">
-            <div class="fleet-text">
+            <div class="fleet-text reveal-element">
                 <h2>MOBILE<br><span class="header-accent">COMMAND</span></h2>
                 <p>Our trackside presence is engineered for efficiency and impact. Anchored by the fully-wrapped Ford Transit 150, our operations unit serves as a mobile testament to our technical wrap application capabilities.</p>
                 <p>From chassis tuning to fleet branding, the KartGenes methodology scales seamlessly from the karting grid to the transporter.</p>
-                <a href="mailto:kris@kartgenes.com" class="btn" style="margin-top: 2rem; background: var(--kg-white); color: var(--kg-black);">Contact Operations</a>
+                <a href="mailto:contact@kartgenes.com" class="btn" style="margin-top: 2rem; background: var(--kg-white); color: var(--kg-black);">Contact Operations</a>
             </div>
-            <div class="fleet-image"></div>
+            <div class="fleet-image reveal-element">
+                <div class="tech-overlay">
+                    <h4>// LOGISTICS_SPEC_DATA</h4>
+                    <ul>
+                        <li>// FLEET ID: FORD TRANSIT 150</li>
+                        <li>// MEDIA: CAST VINYL CUTS</li>
+                        <li>// MATRIX: HIGH GLOSS TECHNICAL</li>
+                        <li>// BASE OPS: ST. LOUIS, MO</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -284,5 +375,37 @@
         &copy; 2026 KARTGENES. ALL RIGHTS RESERVED.
     </footer>
 
+    <script>
+        // TRICK 3: Telemetry Scroll Progress Controller
+        const telemetryBar = document.getElementById('telemetry-bar');
+        window.addEventListener('scroll', () => {
+            const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+            if (totalScroll > 0) {
+                const scrollPercent = window.scrollY / totalScroll;
+                // Hardware accelerated transformation scaling
+                telemetryBar.style.transform = `scaleY(${scrollPercent})`;
+            }
+        });
+
+        // TRICK 4: Snap-to-Grid Intersection Observer for Sequential Loading
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Unobserve after activation to lock state in place efficiently
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        document.querySelectorAll('.reveal-element').forEach(element => {
+            revealObserver.observe(element);
+        });
+    </script>
 </body>
 </html>
