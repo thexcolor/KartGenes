@@ -1,16 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KartGenes | The DNA</title>
+    <title>KartGenes | Visual Engineering & Motorsport</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* --- VISUAL ENGINEERING SYSTEM (CSS VARIABLES) --- */
+        /* --- VISUAL ENGINEERING SYSTEM --- */
         :root {
             --kg-white: #FFFFFF;
             --kg-black: #0A0A0A;
@@ -20,12 +19,7 @@
             --font-body: 'Inter', sans-serif;
         }
 
-        /* --- BASE RESET --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--kg-white);
@@ -33,6 +27,7 @@
             font-family: var(--font-body);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
@@ -47,326 +42,242 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             background-color: var(--kg-white);
             border-bottom: 1px solid #EAEAEA;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .nav-logo {
-            font-family: var(--font-head);
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: 4px;
-            text-decoration: none;
-            color: var(--kg-black);
+        /* --- LOGO SIZING --- */
+        img.nav-logo, img.footer-logo {
+            height: 40px;
+            width: auto;
+            cursor: pointer;
         }
-
-        .nav-logo span {
-            color: var(--kg-red);
-        }
-
-        /* --- SECTION 1: THE APEX (HERO) --- */
-        .hero {
-            position: relative;
-            height: 80vh;
-            background-color: var(--kg-black);
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            overflow: hidden;
-        }
-
-        /* Placeholder for your actual Track/Kart image */
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1596489370008-0130dbfa5b0d?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3; /* Darkened to let text cut through */
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .drop-line {
-            width: 4px;
-            height: 80px;
-            background-color: var(--kg-red);
-            margin-bottom: 1rem;
-        }
-
-        .hero h1 {
-            color: var(--kg-white);
-            font-size: clamp(3rem, 6vw, 6rem);
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            color: var(--kg-grey);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* --- SECTION 2: THE CORE ETHOS --- */
-        .ethos {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            padding: 8rem 5%;
-            position: relative;
-        }
-
-        .ethos-bg-accent {
-            position: absolute;
-            right: 5%;
-            top: 20%;
-            font-family: var(--font-head);
-            font-size: 12rem;
-            color: rgba(10, 10, 10, 0.03);
-            z-index: 0;
-            pointer-events: none;
-            letter-spacing: -10px;
-        }
-
-        .ethos h2 {
-            font-size: clamp(2.5rem, 4vw, 4rem);
-            position: relative;
-            z-index: 2;
-        }
-
-        .ethos h2 span {
-            color: var(--kg-red);
+        
+        img.footer-logo {
+            margin: 0 auto 1rem auto;
             display: block;
+            cursor: default;
         }
 
-        .ethos-text {
-            font-size: 1.1rem;
-            font-weight: 300;
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links button {
+            background: none;
+            border: none;
+            font-family: var(--font-head);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--kg-black);
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
             position: relative;
-            z-index: 2;
         }
 
-        .ethos-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        /* --- SECTION 3: ARCHITECTURE OF REALIZATION --- */
-        .heritage {
-            padding: 0 5% 8rem 5%;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .heritage-card {
-            border: 1px solid var(--kg-black);
-            padding: 3rem 2rem;
-            position: relative;
-            background: var(--kg-white);
-            transition: transform 0.3s ease;
-        }
-
-        .heritage-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* The signature red corner accent */
-        .heritage-card::before {
+        .nav-links button:hover, .nav-links button.active { color: var(--kg-red); }
+        .nav-links button.active::after {
             content: '';
             position: absolute;
-            top: -1px;
-            right: -1px;
-            width: 30px;
-            height: 30px;
-            background-color: var(--kg-red);
-            clip-path: polygon(100% 0, 0 0, 100% 100%);
-        }
-
-        .heritage-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .heritage-card p {
-            font-size: 0.95rem;
-            font-weight: 300;
-        }
-
-        /* --- SECTION 4: THE FORMULA (ICONOGRAPHY) --- */
-        .formula {
-            background-color: var(--kg-black);
-            color: var(--kg-white);
-            padding: 6rem 5%;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .formula-item {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .formula-icon {
-            font-family: var(--font-head);
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--kg-red);
-            margin-bottom: 1rem;
-            letter-spacing: 0;
-        }
-
-        .formula-caption {
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* --- SECTION 5: FOOTER TRANSITION --- */
-        .footer-cta {
-            position: relative;
-            height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--kg-black);
-            overflow: hidden;
-        }
-
-        /* Placeholder for your actual Ford Transit 150 image */
-        .footer-bg {
-            position: absolute;
-            top: 0;
+            bottom: -5px;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1552084117-56a98cea30ce?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4;
-            z-index: 1;
+            height: 2px;
+            background-color: var(--kg-red);
         }
 
+        /* --- SPA ROUTING SETUP --- */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+            min-height: 80vh;
+        }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- REUSABLE COMPONENTS --- */
         .btn {
-            position: relative;
-            z-index: 2;
             display: inline-block;
             background-color: var(--kg-black);
             color: var(--kg-white);
             font-family: var(--font-head);
             text-transform: uppercase;
-            text-decoration: none;
             padding: 1.2rem 3rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             letter-spacing: 2px;
-            border: 1px solid var(--kg-white);
+            border: 1px solid var(--kg-black);
             cursor: pointer;
             transition: all 0.2s ease-in-out;
-            overflow: hidden;
         }
+        .btn:hover { background-color: var(--kg-red); border-color: var(--kg-red); }
+        
+        .header-accent { color: var(--kg-red); }
+        .drop-line { width: 4px; height: 60px; background-color: var(--kg-red); margin-bottom: 1rem; }
 
-        /* Button Hover State - Solid Red with Telemetry line illusion */
-        .btn:hover {
-            background-color: var(--kg-red);
-            border-color: var(--kg-red);
-            color: var(--kg-white);
-        }
+        /* --- PAGE 1: HOME --- */
+        .hero { position: relative; height: 85vh; background-color: var(--kg-black); display: flex; align-items: center; padding: 0 5%; overflow: hidden; }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('images/hero-bg.png') center/cover; opacity: 0.3; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { color: var(--kg-white); font-size: clamp(3rem, 6vw, 6rem); margin-bottom: 1rem; }
+        .hero p { color: var(--kg-grey); font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2rem; }
 
-        /* --- RESPONSIVE ADJUSTMENTS --- */
+        /* --- PAGE 2: DNA --- */
+        .dna-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 6rem 5%; }
+        .dna-manifesto p { margin-bottom: 1.5rem; font-size: 1.1rem; color: #333; }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background: var(--kg-black); color: var(--kg-white); padding: 4rem 5%; }
+        .stat-card { border-left: 2px solid var(--kg-red); padding-left: 2rem; }
+        .stat-card h3 { font-size: 3rem; margin-bottom: 0.5rem; }
+        .stat-card p { color: var(--kg-grey); font-family: var(--font-head); letter-spacing: 1px; font-size: 0.9rem; }
+
+        /* --- PAGE 3: EXECUTION (ROSTER & PROCESS) --- */
+        .roster-section { padding: 6rem 5%; display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
+        .roster-text { flex: 1; min-width: 300px; }
+        .roster-image { flex: 1; min-width: 300px; height: 500px; background: #111 url('images/roster-nikola.png') center/cover; border: 1px solid var(--kg-red); }
+        
+        .process-banner { background-color: #F5F5F5; padding: 6rem 5%; text-align: center; }
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .process-step { background: var(--kg-white); padding: 2rem; border-top: 4px solid var(--kg-black); transition: border-color 0.3s; }
+        .process-step:hover { border-color: var(--kg-red); }
+
+        /* --- PAGE 4: OPERATIONS (TRACKSIDE & FLEET) --- */
+        .fleet-section { display: grid; grid-template-columns: 1fr 1fr; }
+        .fleet-image { height: 600px; background: #222 url('images/fleet-transit.png') center/cover; }
+        .fleet-text { padding: 6rem 10%; display: flex; flex-direction: column; justify-content: center; background: var(--kg-black); color: var(--kg-white); }
+        .fleet-text h2 { margin-bottom: 1.5rem; }
+        .fleet-text p { color: var(--kg-grey); margin-bottom: 1.5rem; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--kg-black); color: var(--kg-grey); text-align: center; padding: 3rem 5%; border-top: 1px solid #222; font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px; }
+        
         @media (max-width: 768px) {
-            .ethos {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 4rem 5%;
-            }
-            .ethos-bg-accent {
-                display: none;
-            }
-            .hero h1 {
-                font-size: 3rem;
-            }
+            .nav-links { display: none; }
+            .dna-grid, .stats-grid, .fleet-section { grid-template-columns: 1fr; }
+            .fleet-image { height: 300px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="nav-logo">KART<span>GENES</span></a>
-        </nav>
-
-    <header class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <div class="drop-line"></div>
-            <h1>BUILT TO<br>EVOLVE.</h1>
-            <p>Progress is not accidental. It is engineered.</p>
+        <img src="images/logo.png" alt="KartGenes Logo" class="nav-logo" onclick="navigate('home')">
+        <div class="nav-links">
+            <button onclick="navigate('home')" class="nav-btn active" data-target="home">Home</button>
+            <button onclick="navigate('dna')" class="nav-btn" data-target="dna">The DNA</button>
+            <button onclick="navigate('execution')" class="nav-btn" data-target="execution">Execution</button>
+            <button onclick="navigate('operations')" class="nav-btn" data-target="operations">Operations</button>
         </div>
-    </header>
+    </nav>
 
-    <section class="ethos">
-        <div class="ethos-bg-accent">////</div>
-        <div>
-            <h2>PRACTICE<span>PATIENCE.</span></h2>
+    <section id="home" class="page-section active">
+        <header class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <div class="drop-line"></div>
+                <h1>BUILT TO<br>EVOLVE.</h1>
+                <p>Performance requires patience.</p>
+                <button class="btn" onclick="navigate('dna')">Explore The Blueprint</button>
+            </div>
+        </header>
+    </section>
+
+    <section id="dna" class="page-section">
+        <div class="dna-grid">
+            <div>
+                <h2>PRACTICE <br><span class="header-accent">PATIENCE.</span></h2>
+            </div>
+            <div class="dna-manifesto">
+                <p>Motorsport is too often driven by erratic, unfiltered passion. KartGenes operates on a different frequency. We believe that true performance requires absolute discipline. It is about removing the emotion from the equation and focusing entirely on the process.</p>
+                <p>We practice patience. We trust in the mechanics of compounding progress—lap after lap, step after step, millimeter by millimeter. Speed is simply the byproduct of flawless, patient execution.</p>
+            </div>
         </div>
-        <div class="ethos-text">
-            <p>Motorsport is too often driven by erratic, unfiltered passion. KartGenes operates on a different frequency. We believe that true performance requires absolute discipline. It is about removing the emotion from the equation and focusing entirely on the process.</p>
-            <p>We practice patience. We trust in the mechanics of compounding progress—lap after lap, step after step, millimeter by millimeter. Speed is simply the byproduct of flawless, patient execution.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>40+</h3>
+                <p>YEARS OF GLOBAL KARTING HERITAGE</p>
+            </div>
+            <div class="stat-card">
+                <h3>25+</h3>
+                <p>YEARS OF MASTER-LEVEL GRAPHIC DESIGN</p>
+            </div>
         </div>
     </section>
 
-    <section class="heritage">
-        <div class="grid-3">
-            <div class="heritage-card">
-                <h3>FOUR DECADES.</h3>
-                <p>Forged across two continents, the KartGenes foundation rests on over 40 years of embedded karting heritage. From trackside coaching to club infrastructure, we understand the anatomy of motorsport at its most fundamental level.</p>
-            </div>
-            <div class="heritage-card">
-                <h3>A QUARTER CENTURY.</h3>
-                <p>We do not separate aesthetics from performance. Backed by over 25 years of master-level graphic design and high-precision technical wrap application, every visual element is calculated. We are architects of realization, demanding the same exactitude from a plotter blade as we do from a steering column.</p>
-            </div>
-            <div class="heritage-card">
-                <h3>THE DRIVER.</h3>
+    <section id="execution" class="page-section">
+        <div class="roster-section">
+            <div class="roster-text">
+                <div class="drop-line"></div>
+                <h2>THE DRIVER:<br> <span class="header-accent">NIKOLA</span></h2>
+                <br>
                 <p>Philosophy means nothing without execution. On the track and in the shop, Nikola embodies the KartGenes standard. As a competitor and a craftsman, his development is the living proof of our core thesis: discipline yields results.</p>
             </div>
+            <div class="roster-image"></div>
+        </div>
+
+        <div class="process-banner">
+            <h2>VISUAL <span class="header-accent">ENGINEERING</span></h2>
+            <p>We do not separate aesthetics from performance. We are architects of realization.</p>
+            <div class="process-grid">
+                <div class="process-step">
+                    <h4>01. IDEATION</h4>
+                    <p>Conceptualizing aerodynamics and brand identity using advanced AI frameworks as a foundation.</p>
+                </div>
+                <div class="process-step">
+                    <h4>02. PRECISION MODELING</h4>
+                    <p>Executing uncompromising manual vectorization and bespoke 3D modeling for helmet and livery assets.</p>
+                </div>
+                <div class="process-step">
+                    <h4>03. APPLICATION</h4>
+                    <p>Demanding the same exactitude from a plotter blade as we do from a steering column during final output.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="formula">
-        <div class="formula-item">
-            <div class="formula-icon">KG</div>
-            <div class="formula-caption">Precision in Design.</div>
-        </div>
-        <div class="formula-item">
-            <div class="formula-icon">////</div>
-            <div class="formula-caption">Discipline in Execution.</div>
-        </div>
-        <div class="formula-item">
-            <div class="formula-icon">■ ■</div>
-            <div class="formula-caption">Patience in Progression.</div>
+    <section id="operations" class="page-section">
+        <div class="fleet-section">
+            <div class="fleet-text">
+                <h2>MOBILE<br><span class="header-accent">COMMAND</span></h2>
+                <p>Our trackside presence is engineered for efficiency and impact. Anchored by the fully-wrapped Ford Transit 150, our operations unit serves as a mobile testament to our technical wrap application capabilities.</p>
+                <p>From chassis tuning to fleet branding, the KartGenes methodology scales seamlessly from the Tony Kart to the transporter.</p>
+                <button class="btn" style="margin-top: 2rem; background: var(--kg-white); color: var(--kg-black);">Contact Operations</button>
+            </div>
+            <div class="fleet-image"></div>
         </div>
     </section>
 
-    <footer class="footer-cta">
-        <div class="footer-bg"></div>
-        <a href="#" class="btn">VIEW THE ROSTER</a>
+    <footer>
+        <img src="images/logo.png" alt="KartGenes Logo" class="footer-logo">
+        OPERATING OUT OF ST. LOUIS, MO<br>
+        &copy; 2026 KARTGENES. ALL RIGHTS RESERVED.
     </footer>
 
+    <script>
+        function navigate(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show target section
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update Navigation active states
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Only add active class if it's a nav button click (not logo)
+            const targetBtn = document.querySelector(`.nav-btn[data-target="${pageId}"]`);
+            if(targetBtn) {
+                targetBtn.classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
