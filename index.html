@@ -6,7 +6,7 @@
     <title>KartGenes | Visual Engineering & Motorsport</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
         /* --- VISUAL ENGINEERING SYSTEM --- */
@@ -14,7 +14,8 @@
             --kg-white: #FFFFFF;
             --kg-black: #0A0A0A;
             --kg-red: #E10600;
-            --kg-grey: #B3B383;
+            --kg-silver: #EAEAEA; /* FIX: Changed from yellowish #B3B383 to ultra-clean crisp silver */
+            --kg-dark-grey: #333333;
             --font-head: 'Orbitron', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
@@ -32,7 +33,7 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            /* TRICK 1: CAD-Style Crosshair Cursor */
+            /* CAD-Style Crosshair Cursor */
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none' stroke='%23E10600' stroke-width='1'><line x1='16' y1='0' x2='16' y2='32'/><line x1='0' y1='16' x2='32' y2='16'/></svg>") 16 16, auto;
         }
 
@@ -43,7 +44,7 @@
             line-height: 1.1;
         }
 
-        /* TRICK 3: Telemetry Scroll Progress Bar */
+        /* Telemetry Scroll Progress Bar */
         #telemetry-bar {
             position: fixed;
             top: 0;
@@ -73,7 +74,7 @@
         }
 
         img.nav-logo, img.footer-logo {
-            height: 120px;
+            height: 40px;
             width: auto;
             cursor: pointer;
         }
@@ -123,7 +124,7 @@
         .header-accent { color: var(--kg-red); }
         .drop-line { width: 4px; height: 60px; background-color: var(--kg-red); margin-bottom: 1rem; }
 
-        /* TRICK 4: Snap-to-Grid Sequential Loading States */
+        /* Snap-to-Grid Sequential Loading States */
         .reveal-element {
             opacity: 0;
             transform: translateY(30px);
@@ -140,23 +141,23 @@
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('images/hero-bg.png') center/cover; opacity: 0.3; }
         .hero-content { position: relative; z-index: 2; margin-top: 80px;}
         .hero h1 { color: var(--kg-white); font-size: clamp(3rem, 6vw, 6rem); margin-bottom: 1rem; }
-        .hero p { color: var(--kg-grey); font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2rem; }
+        .hero p { color: var(--kg-silver); font-size: 1.2rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2rem; }
 
         /* --- PAGE 2: DNA --- */
         .dna-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 6rem 5%; }
-        .dna-manifesto p { margin-bottom: 1.5rem; font-size: 1.1rem; color: #333; }
+        .dna-manifesto p { margin-bottom: 1.5rem; font-size: 1.1rem; color: #222; font-weight: 400; }
         
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background: var(--kg-black); color: var(--kg-white); padding: 4rem 5%; }
         .stat-card { border-left: 2px solid var(--kg-red); padding-left: 2rem; }
-        .stat-card h3 { font-size: 3rem; margin-bottom: 0.5rem; }
-        .stat-card p { color: var(--kg-grey); font-family: var(--font-head); letter-spacing: 1px; font-size: 0.9rem; }
+        .stat-card h3 { font-size: 3rem; margin-bottom: 0.5rem; color: var(--kg-white); }
+        .stat-card p { color: var(--kg-silver); font-family: var(--font-head); letter-spacing: 1px; font-size: 0.9rem; }
 
         /* --- PAGE 3: EXECUTION --- */
         .roster-wrapper { padding: 6rem 5%; display: flex; flex-direction: column; gap: 6rem; }
         .roster-block { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
         .roster-block.reverse { flex-direction: row-reverse; }
         .roster-text { flex: 1; min-width: 300px; }
-        .roster-text p { margin-bottom: 1rem; color: #333; }
+        .roster-text p { margin-bottom: 1rem; color: #222; font-size: 1.05rem; }
         
         .roster-image { 
             flex: 1; 
@@ -183,11 +184,11 @@
         .img-kris { background-image: url('images/roster-kris.png'); border-color: var(--kg-red); }
         .img-architect { background-image: url('images/roster-architect.png'); }
 
-        /* TRICK 2: Technical Data Overlay on Hover */
+        /* Hover Technical Data Overlay */
         .tech-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(10, 10, 10, 0.92);
             color: var(--kg-white);
             padding: 3rem;
             display: flex;
@@ -205,26 +206,39 @@
         }
         .tech-overlay h4 { color: var(--kg-red); margin-bottom: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;}
         .tech-overlay ul { list-style: none; }
-        .tech-overlay ul li { font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 0.5rem; color: var(--kg-grey); }
+        .tech-overlay ul li { font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 0.5rem; color: var(--kg-silver); }
         
         .process-banner { background-color: #F5F5F5; padding: 6rem 5%; text-align: center; }
         .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
         .process-step { background: var(--kg-white); padding: 2rem; border-top: 4px solid var(--kg-black); transition: border-color 0.3s; text-align: left; }
         .process-step:hover { border-color: var(--kg-red); }
         .process-step h4 { margin-bottom: 1rem; }
+        .process-step p { color: #333; font-size: 0.95rem; }
 
         /* --- PAGE 4: OPERATIONS --- */
         .fleet-section { display: grid; grid-template-columns: 1fr 1fr; }
-        .fleet-image { height: 600px; background: #222 url('images/fleet-transit.png') center/cover; position: relative; overflow: hidden; }
+        
+        /* FIX: Built an engineering grid background fallback if fleet-transit.png isn't loaded yet */
+        .fleet-image { 
+            height: 600px; 
+            background: #111 url('images/fleet-transit.png') center/cover; 
+            background-image: linear-gradient(rgba(10,10,10,0.5), rgba(10,10,10,0.5)), 
+                              linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), 
+                              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px),
+                              url('images/fleet-transit.png');
+            background-size: cover, 40px 40px, 40px 40px, cover;
+            position: relative; 
+            overflow: hidden; 
+        }
         .fleet-text { padding: 6rem 10%; display: flex; flex-direction: column; justify-content: center; background: var(--kg-black); color: var(--kg-white); }
-        .fleet-text h2 { margin-bottom: 1.5rem; }
-        .fleet-text p { color: var(--kg-grey); margin-bottom: 1.5rem; }
+        .fleet-text h2 { margin-bottom: 1.5rem; color: var(--kg-white); }
+        .fleet-text p { color: var(--kg-silver); margin-bottom: 1.5rem; font-size: 1.05rem; font-weight: 400; }
 
         /* --- FOOTER --- */
-        footer { background: var(--kg-black); color: var(--kg-grey); text-align: center; padding: 4rem 5%; border-top: 1px solid #222; font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px; }
+        footer { background: var(--kg-black); color: var(--kg-silver); text-align: center; padding: 4rem 5%; border-top: 1px solid #222; font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px; }
         
         @media (max-width: 768px) {
-            body { cursor: auto !important; } /* Disable custom cursor on mobile touch screens */
+            body { cursor: auto !important; }
             .nav-links { display: none; }
             .dna-grid, .stats-grid, .fleet-section { grid-template-columns: 1fr; }
             .roster-block.reverse { flex-direction: column; }
@@ -237,7 +251,7 @@
     <div id="telemetry-bar"></div>
 
     <nav>
-        <a href="#home"><img src="images/logo1.png" alt="KartGenes Logo" class="nav-logo"></a>
+        <a href="#home"><img src="images/logo.png" alt="KartGenes Logo" class="nav-logo"></a>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#dna">The DNA</a>
@@ -328,7 +342,7 @@
 
         <div class="process-banner">
             <h2 class="reveal-element">VISUAL <span class="header-accent">ENGINEERING</span></h2>
-            <p class="reveal-element" style="margin-top: 1rem;">We do not separate aesthetics from performance. We are architects of realization.</p>
+            <p class="reveal-element" style="margin-top: 1rem; color: #333;">We do not separate aesthetics from performance. We are architects of realization.</p>
             <div class="process-grid">
                 <div class="process-step reveal-element">
                     <h4>01. IDEATION</h4>
@@ -358,9 +372,9 @@
                 <div class="tech-overlay">
                     <h4>// LOGISTICS_SPEC_DATA</h4>
                     <ul>
-                        <li>// FLEET ID: FORD TRANSIT 150</li>
-                        <li>// MEDIA: CAST VINYL CUTS</li>
-                        <li>// MATRIX: HIGH GLOSS TECHNICAL</li>
+                        <li>// FLEET ID: FORD TRANSIT 150 COMMAND</li>
+                        <li>// SURFACE: CAST CUT VINYL APPLICATION</li>
+                        <li>// TECHNIQUE: ARCHITECTURAL PHOTO SCALE MATRIX</li>
                         <li>// BASE OPS: ST. LOUIS, MO</li>
                     </ul>
                 </div>
@@ -369,35 +383,33 @@
     </section>
 
     <footer>
-        <img src="images/logo1.png" alt="KartGenes Logo" class="footer-logo">
+        <img src="images/logo.png" alt="KartGenes Logo" class="footer-logo">
         OPERATING OUT OF ST. LOUIS, MO<br>
         <br>
         &copy; 2026 KARTGENES. ALL RIGHTS RESERVED.
     </footer>
 
     <script>
-        // TRICK 3: Telemetry Scroll Progress Controller
+        // Telemetry Scroll Progress Controller
         const telemetryBar = document.getElementById('telemetry-bar');
         window.addEventListener('scroll', () => {
             const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
             if (totalScroll > 0) {
                 const scrollPercent = window.scrollY / totalScroll;
-                // Hardware accelerated transformation scaling
                 telemetryBar.style.transform = `scaleY(${scrollPercent})`;
             }
         });
 
-        // TRICK 4: Snap-to-Grid Intersection Observer for Sequential Loading
+        // Intersection Observer for Snap Elements
         const revealOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
+            threshold: 0.12,
+            rootMargin: "0px 0px -30px 0px"
         };
 
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Unobserve after activation to lock state in place efficiently
                     observer.unobserve(entry.target);
                 }
             });
