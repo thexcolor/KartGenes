@@ -21,6 +21,10 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--kg-white);
             color: var(--kg-black);
@@ -45,8 +49,9 @@
             padding: 1.5rem 5%;
             background-color: var(--kg-white);
             border-bottom: 1px solid #EAEAEA;
-            position: sticky;
+            position: fixed; /* Changed to fixed for scrolling */
             top: 0;
+            width: 100%;
             z-index: 1000;
         }
 
@@ -64,38 +69,24 @@
         }
 
         .nav-links { display: flex; gap: 2rem; }
-        .nav-links button {
-            background: none;
-            border: none;
+        .nav-links a {
             font-family: var(--font-head);
             font-size: 0.9rem;
             letter-spacing: 1px;
             color: var(--kg-black);
-            cursor: pointer;
+            text-decoration: none;
             text-transform: uppercase;
             transition: color 0.2s ease;
             position: relative;
         }
 
-        .nav-links button:hover, .nav-links button.active { color: var(--kg-red); }
-        .nav-links button.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--kg-red);
-        }
+        .nav-links a:hover { color: var(--kg-red); }
 
-        /* --- SPA ROUTING SETUP --- */
+        /* --- SECTION PADDING FOR FIXED NAV --- */
         .page-section {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
+            padding-top: 80px; /* Offsets the fixed header so content isn't hidden */
             min-height: 80vh;
         }
-        .page-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- REUSABLE COMPONENTS --- */
         .btn {
@@ -104,6 +95,7 @@
             color: var(--kg-white);
             font-family: var(--font-head);
             text-transform: uppercase;
+            text-decoration: none;
             padding: 1.2rem 3rem;
             font-size: 1rem;
             font-weight: 700;
@@ -112,15 +104,15 @@
             cursor: pointer;
             transition: all 0.2s ease-in-out;
         }
-        .btn:hover { background-color: var(--kg-red); border-color: var(--kg-red); }
+        .btn:hover { background-color: var(--kg-red); border-color: var(--kg-red); color: var(--kg-white); }
         
         .header-accent { color: var(--kg-red); }
         .drop-line { width: 4px; height: 60px; background-color: var(--kg-red); margin-bottom: 1rem; }
 
         /* --- PAGE 1: HOME --- */
-        .hero { position: relative; height: 85vh; background-color: var(--kg-black); display: flex; align-items: center; padding: 0 5%; overflow: hidden; }
+        .hero { position: relative; height: 100vh; background-color: var(--kg-black); display: flex; align-items: center; padding: 0 5%; overflow: hidden; margin-top: -80px; /* pull up under nav initially */ }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('images/hero-bg.png') center/cover; opacity: 0.3; }
-        .hero-content { position: relative; z-index: 2; }
+        .hero-content { position: relative; z-index: 2; margin-top: 80px;}
         .hero h1 { color: var(--kg-white); font-size: clamp(3rem, 6vw, 6rem); margin-bottom: 1rem; }
         .hero p { color: var(--kg-grey); font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2rem; }
 
@@ -134,14 +126,34 @@
         .stat-card p { color: var(--kg-grey); font-family: var(--font-head); letter-spacing: 1px; font-size: 0.9rem; }
 
         /* --- PAGE 3: EXECUTION (ROSTER & PROCESS) --- */
-        .roster-section { padding: 6rem 5%; display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
+        .roster-wrapper { padding: 6rem 5%; display: flex; flex-direction: column; gap: 6rem; }
+        
+        .roster-block { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
+        .roster-block.reverse { flex-direction: row-reverse; }
+        
         .roster-text { flex: 1; min-width: 300px; }
-        .roster-image { flex: 1; min-width: 300px; height: 500px; background: #111 url('images/roster-nikola.png') center/cover; border: 1px solid var(--kg-red); }
+        .roster-text p { margin-bottom: 1rem; color: #333; }
+        
+        .roster-image { flex: 1; min-width: 300px; height: 500px; background-color: #111; background-size: cover; background-position: center; border: 1px solid var(--kg-black); position: relative; }
+        
+        /* Red architectural accent corner */
+        .roster-image::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; right: -1px;
+            width: 40px; height: 40px;
+            background: var(--kg-red);
+            clip-path: polygon(100% 0, 0 100%, 100% 100%);
+        }
+
+        .img-kris { background-image: url('images/roster-kris.png'); border-color: var(--kg-red); }
+        .img-architect { background-image: url('images/roster-architect.png'); }
         
         .process-banner { background-color: #F5F5F5; padding: 6rem 5%; text-align: center; }
         .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
-        .process-step { background: var(--kg-white); padding: 2rem; border-top: 4px solid var(--kg-black); transition: border-color 0.3s; }
+        .process-step { background: var(--kg-white); padding: 2rem; border-top: 4px solid var(--kg-black); transition: border-color 0.3s; text-align: left; }
         .process-step:hover { border-color: var(--kg-red); }
+        .process-step h4 { margin-bottom: 1rem; }
 
         /* --- PAGE 4: OPERATIONS (TRACKSIDE & FLEET) --- */
         .fleet-section { display: grid; grid-template-columns: 1fr 1fr; }
@@ -151,11 +163,12 @@
         .fleet-text p { color: var(--kg-grey); margin-bottom: 1.5rem; }
 
         /* --- FOOTER --- */
-        footer { background: var(--kg-black); color: var(--kg-grey); text-align: center; padding: 3rem 5%; border-top: 1px solid #222; font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px; }
+        footer { background: var(--kg-black); color: var(--kg-grey); text-align: center; padding: 4rem 5%; border-top: 1px solid #222; font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px; }
         
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .dna-grid, .stats-grid, .fleet-section { grid-template-columns: 1fr; }
+            .roster-block.reverse { flex-direction: column; }
             .fleet-image { height: 300px; }
         }
     </style>
@@ -163,26 +176,24 @@
 <body>
 
     <nav>
-        <img src="images/logo.png" alt="KartGenes Logo" class="nav-logo" onclick="navigate('home')">
+        <a href="#home"><img src="images/logo.png" alt="KartGenes Logo" class="nav-logo"></a>
         <div class="nav-links">
-            <button onclick="navigate('home')" class="nav-btn active" data-target="home">Home</button>
-            <button onclick="navigate('dna')" class="nav-btn" data-target="dna">The DNA</button>
-            <button onclick="navigate('execution')" class="nav-btn" data-target="execution">Execution</button>
-            <button onclick="navigate('operations')" class="nav-btn" data-target="operations">Operations</button>
+            <a href="#home">Home</a>
+            <a href="#dna">The DNA</a>
+            <a href="#execution">Execution</a>
+            <a href="#operations">Operations</a>
         </div>
     </nav>
 
-    <section id="home" class="page-section active">
-        <header class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-content">
-                <div class="drop-line"></div>
-                <h1>BUILT TO<br>EVOLVE.</h1>
-                <p>Performance requires patience.</p>
-                <button class="btn" onclick="navigate('dna')">Explore The Blueprint</button>
-            </div>
-        </header>
-    </section>
+    <header id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="drop-line"></div>
+            <h1>BUILT TO<br>EVOLVE.</h1>
+            <p>Performance requires patience.</p>
+            <a href="#dna" class="btn">Explore The Blueprint</a>
+        </div>
+    </header>
 
     <section id="dna" class="page-section">
         <div class="dna-grid">
@@ -208,43 +219,59 @@
     </section>
 
     <section id="execution" class="page-section">
-        <div class="roster-section">
-            <div class="roster-text">
-                <div class="drop-line"></div>
-                <h2>THE DRIVER:<br> <span class="header-accent">NIKOLA</span></h2>
-                <br>
-                <p>Philosophy means nothing without execution. On the track and in the shop, Nikola embodies the KartGenes standard. As a competitor and a craftsman, his development is the living proof of our core thesis: discipline yields results.</p>
+        <div class="roster-wrapper">
+            
+            <div class="roster-block">
+                <div class="roster-text">
+                    <div class="drop-line"></div>
+                    <h2>THE DRIVER:<br> <span class="header-accent">KRIS (KONSTANTIN)</span></h2>
+                    <br>
+                    <p>Philosophy means nothing without execution. On the track, Kris embodies the KartGenes standard. As a competitor, his development is the physical manifestation of our core thesis: discipline yields results.</p>
+                    <p>Every apex is a calculation. Every straight is a moment of patience. Kris’s trajectory is built on consistent, compounding progress rather than erratic surges of passion.</p>
+                </div>
+                <div class="roster-image img-kris"></div>
             </div>
-            <div class="roster-image"></div>
+
+            <div class="roster-block reverse">
+                <div class="roster-text">
+                    <div class="drop-line" style="background-color: var(--kg-black);"></div>
+                    <h2>THE ARCHITECT:<br> <span class="header-accent">FOUNDER</span></h2>
+                    <br>
+                    <p>Forged across two continents, the foundation of KartGenes rests on over 40 years of trackside heritage. But motorsport requires more than just mechanical understanding.</p>
+                    <p>Operating with a Pedagogue-Electrical Engineering discipline, and backed by over 25 years of master-level graphic design, aesthetics and reliability are never separated. This is visual engineering. From the exactitude of a plotter blade to the tuning of a steering column, the architect builds the infrastructure of realization.</p>
+                </div>
+                <div class="roster-image img-architect"></div>
+            </div>
+
         </div>
 
         <div class="process-banner">
             <h2>VISUAL <span class="header-accent">ENGINEERING</span></h2>
-            <p>We do not separate aesthetics from performance. We are architects of realization.</p>
+            <p style="margin-top: 1rem;">We do not separate aesthetics from performance. We are architects of realization.</p>
             <div class="process-grid">
                 <div class="process-step">
                     <h4>01. IDEATION</h4>
-                    <p>Conceptualizing aerodynamics and brand identity using advanced AI frameworks as a foundation.</p>
+                    <p>Conceptualizing aerodynamics and brand identity using advanced AI frameworks as a baseline foundation.</p>
                 </div>
                 <div class="process-step">
                     <h4>02. PRECISION MODELING</h4>
-                    <p>Executing uncompromising manual vectorization and bespoke 3D modeling for helmet and livery assets.</p>
+                    <p>Executing uncompromising manual vectorization and bespoke 3D modeling for critical helmet and livery assets.</p>
                 </div>
                 <div class="process-step">
                     <h4>03. APPLICATION</h4>
-                    <p>Demanding the same exactitude from a plotter blade as we do from a steering column during final output.</p>
+                    <p>Demanding the same rigorous technical exactitude from a high-performance vinyl wrap application as we do on the track.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="operations" class="page-section">
+    <section id="operations" class="page-section" style="padding-top: 0;">
         <div class="fleet-section">
             <div class="fleet-text">
                 <h2>MOBILE<br><span class="header-accent">COMMAND</span></h2>
                 <p>Our trackside presence is engineered for efficiency and impact. Anchored by the fully-wrapped Ford Transit 150, our operations unit serves as a mobile testament to our technical wrap application capabilities.</p>
-                <p>From chassis tuning to fleet branding, the KartGenes methodology scales seamlessly from the Tony Kart to the transporter.</p>
-                <button class="btn" style="margin-top: 2rem; background: var(--kg-white); color: var(--kg-black);">Contact Operations</button>
+                <p>From chassis tuning to fleet branding, the KartGenes methodology scales seamlessly from the karting grid to the transporter.</p>
+                <a href="mailto:contact@kartgenes.com" class="btn" style="margin-top: 2rem; background: var(--kg-white); color: var(--kg-black);">Contact Operations</a>
             </div>
             <div class="fleet-image"></div>
         </div>
@@ -253,31 +280,9 @@
     <footer>
         <img src="images/logo.png" alt="KartGenes Logo" class="footer-logo">
         OPERATING OUT OF ST. LOUIS, MO<br>
+        <br>
         &copy; 2026 KARTGENES. ALL RIGHTS RESERVED.
     </footer>
 
-    <script>
-        function navigate(pageId) {
-            // Hide all sections
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            // Show target section
-            document.getElementById(pageId).classList.add('active');
-            
-            // Update Navigation active states
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            // Only add active class if it's a nav button click (not logo)
-            const targetBtn = document.querySelector(`.nav-btn[data-target="${pageId}"]`);
-            if(targetBtn) {
-                targetBtn.classList.add('active');
-            }
-
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
 </body>
 </html>
