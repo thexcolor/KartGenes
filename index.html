@@ -251,6 +251,19 @@ footer img.footer-logo {
     cursor: default;
     filter: invert(1); /* This turns a black logo white, or a white logo black */
 }
+        /* Secondary CTA */
+
+.btn-secondary{
+    background:transparent;
+    color:var(--kg-white);
+    border:1px solid var(--kg-white);
+}
+
+.btn-secondary:hover{
+    background:var(--kg-white);
+    color:var(--kg-black);
+    border-color:var(--kg-white);
+}
     </style>
 </head>
 <body>
@@ -274,7 +287,16 @@ footer img.footer-logo {
             <div class="drop-line"></div>
             <h1>BUILT TO<br>EVOLVE.</h1>
             <p>Performance Requires Patience. Growth Requires Community</p>
-            <a href="#dna" class="btn">Explore The Blueprint</a>
+            <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+
+    <a href="#dna" class="btn">
+        Explore The Blueprint
+    </a>
+
+    <a href="#newsletter"
+       class="btn btn-secondary">
+        Join KartGenes
+    </a>
         </div>
     </header>
 
