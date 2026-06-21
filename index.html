@@ -236,7 +236,55 @@
 
         /* --- FOOTER --- */
         footer { background: var(--kg-black); color: var(--kg-silver); text-align: center; padding: 4rem 5%; border-top: 1px solid #222; font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px; }
-        
+        /* Newsletter Form */
+
+#customForm{
+    max-width:700px;
+}
+
+#customForm input[type="text"],
+#customForm input[type="email"]{
+    width:100%;
+    padding:16px;
+    margin-bottom:15px;
+    border:1px solid #d9d9d9;
+    background:#fff;
+    color:#0A0A0A;
+    font-family:var(--font-body);
+    font-size:16px;
+}
+
+#customForm input:focus{
+    outline:none;
+    border-color:var(--kg-red);
+}
+
+#zcWebOptin{
+    width:100%;
+    background:var(--kg-black);
+    color:white;
+    border:none;
+    padding:18px;
+    font-family:var(--font-head);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:0.2s ease;
+}
+
+#zcWebOptin:hover{
+    background:var(--kg-red);
+}
+
+#errorMsgDiv{
+    color:var(--kg-red);
+    margin-bottom:15px;
+}
+
+#zcOptinOverLay,
+#zcOptinSuccessPopup{
+    display:none !important;
+}
         @media (max-width: 768px) {
             body { cursor: auto !important; }
             .nav-links { display: none; }
@@ -277,7 +325,7 @@ footer img.footer-logo {
             <a href="#dna">The DNA</a>
             <a href="#execution">Execution</a>
             <a href="#operations">Operations</a>
-            <a href="#operations">Community</a>
+            <a href="#newsletter">Join</a>
         </div>
     </nav>
 
@@ -476,33 +524,90 @@ footer img.footer-logo {
 
         <br>
 
-        <p style="max-width:800px;font-size:1.1rem;">
-            Receive race weekend insights, driver development
-            resources, event stories and future KartGenes projects.
+        <h3 style="margin-bottom:15px;">
+            🏁 GET THE FREE RACE WEEKEND CHECKLIST
+        </h3>
+
+        <p style="max-width:800px;font-size:1.1rem;margin-bottom:30px;">
+            Join drivers, families and racers building their journey one lap at a time.
+            Receive race resources, event stories and KartGenes updates.
         </p>
 
-        <br><br>
+        <!-- ZOHO FORM START -->
 
-        <form action="#" method="POST" style="max-width:700px;display:flex;gap:1rem;flex-wrap:wrap;">
+        <!--Zoho Campaigns Web-Optin Form Starts Here-->
 
-            <input
-                type="email"
-                placeholder="Email Address"
-                required
-                style="
-                flex:1;
-                min-width:250px;
-                padding:1rem;
-                border:1px solid #ccc;
-                font-size:1rem;
-                font-family:var(--font-body);
-                ">
+<div id="customForm">
+	<div class="quick_form_24_css" name="SIGNUP_BODY">
+		<div>
+			<div style="position:relative;">
+				<div id="Zc_SignupSuccess" style="display:none;position:absolute;margin-left:4%;width:90%;background-color: white; padding: 3px; border: 3px solid rgb(194, 225, 154);  margin-top: 10px;margin-bottom:10px;word-break:break-all ">
+					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<tr>
+								<td width="10%">
+									<img class="successicon" src="https://zgnp-zngp.maillist-manage.com/images/challangeiconenable.jpg" align="absmiddle">
+								</td>
+								<td>
+									<span id="signupSuccessMsg" style="color: rgb(73, 140, 132); font-family: sans-serif; font-size: 14px;word-break:break-word">&nbsp;&nbsp;Thank you for Signing Up</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<form method="POST" id="zcampaignOptinForm" action="https://zgnp-zngp.maillist-manage.com/weboptin.zc" target="_zcSignup" onsubmit="zcScptlessSubmit(this)">
+				<div id="errorMsgDiv">Please correct the marked field(s) below.</div>
+				<div>
+					<div>
+						<input type="text" placeholder="Email" changeitem="SIGNUP_FORM_FIELD" name="CONTACT_EMAIL" id="EMBED_FORM_EMAIL_LABEL">
+					</div>
+					<div>
+						<input type="text" placeholder="Name" changeitem="SIGNUP_FORM_FIELD" name="FIRSTNAME" id="FIRSTNAME">
+					</div>
+				</div>
+				<div>
+					<input type="submit" name="SIGNUP_SUBMIT_BUTTON" id="zcWebOptin" value="Join KartGenes">
+				</div>
+				<input type="hidden" id="fieldBorder" value="">
+				<input type="hidden" id="submitType" name="submitType" value="optinCustomView">
+				<input type="hidden" id="emailReportId" name="emailReportId" value="">
+				<input type="hidden" id="formType" name="formType" value="QuickForm">
+				<input type="hidden" name="zx" id="cmpZuid" value="1365f997e">
+				<input type="hidden" name="zcvers" value="3.0">
+				<input type="hidden" name="oldListIds" id="allCheckedListIds" value="">
+				<input type="hidden" id="mode" name="mode" value="OptinCreateView">
+				<input type="hidden" id="zcld" name="zcld" value="1173bb8e99d0d3053">
+				<input type="hidden" id="zctd" name="zctd" value="1173bb8e99d0d2f71">
+				<input type="hidden" id="document_domain" value="">
+				<input type="hidden" id="zc_Url" value="zgnp-zngp.maillist-manage.com">
+				<input type="hidden" id="new_optin_response_in" value="1">
+				<input type="hidden" id="duplicate_optin_response_in" value="1">
+				<input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW">
+				<input type="hidden" id="zc_formIx" name="zc_formIx" value="3z03debc3857ddd41ddc6f8db665bec7aa48ca612b8c274f664a53956ad86d5747">
+				<input type="hidden" id="viewFrom" value="URL_ACTION">
+				<input type="hidden" id="scriptless" name="scriptless" value="yes">
+				<input type="hidden" id="zc_spmSubmit" name="zc_spmSubmit" value="ZCSPMSUBMIT">
+			</form>
+		</div>
+	</div>
+</div>
+<div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
+<div id="zcOptinSuccessPopup" style="display:none;z-index: 9999;width: 800px; height: 40%;top: 84px;position: fixed; left: 26%;background-color: #FFFFFF;border-color: #E6E6E6; border-style: solid; border-width: 1px;  box-shadow: 0 1px 10px #424242;padding: 35px;">
+	<span style="position: absolute;top: -16px;right:-14px;z-index:99999;cursor: pointer;" id="closeSuccess">
+		<img src="https://zgnp-zngp.maillist-manage.com/images/videoclose.png">
+	</span>
+	<div id="zcOptinSuccessPanel"></div>
+</div>
+<script>
+	function zcScptlessSubmit(parentNode){
+		if(parentNode.querySelector("#zc_spmSubmit")){parentNode.querySelector("#zc_spmSubmit").remove();}parentNode.submit();
+	}
+</script>
 
-            <button class="btn" type="submit">
-                Join Free
-            </button>
+<!--Zoho Campaigns Web-Optin Form Ends Here-->
 
-        </form>
+        <!-- ZOHO FORM END -->
 
     </div>
 
