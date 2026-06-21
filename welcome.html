@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Welcome to KartGenes</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --kg-white:#FFFFFF;
+    --kg-black:#0A0A0A;
+    --kg-red:#E10600;
+    --font-head:'Orbitron',sans-serif;
+    --font-body:'Inter',sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--kg-black);
+    color:white;
+    font-family:var(--font-body);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px;
+}
+
+.container{
+    max-width:800px;
+}
+
+.logo{
+    width:180px;
+    margin-bottom:40px;
+    filter:invert(1);
+}
+
+h1{
+    font-family:var(--font-head);
+    font-size:clamp(2rem,5vw,4rem);
+    margin-bottom:20px;
+    text-transform:uppercase;
+}
+
+.tagline{
+    color:#cccccc;
+    font-size:1.2rem;
+    margin-bottom:40px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.message{
+    max-width:650px;
+    margin:0 auto 50px auto;
+    font-size:1.1rem;
+    line-height:1.8;
+    color:#dddddd;
+}
+
+.button-group{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:18px 36px;
+    text-decoration:none;
+    font-family:var(--font-head);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    transition:.25s ease;
+}
+
+.btn-primary{
+    background:var(--kg-red);
+    color:white;
+}
+
+.btn-primary:hover{
+    opacity:.9;
+}
+
+.btn-secondary{
+    border:1px solid white;
+    color:white;
+}
+
+.btn-secondary:hover{
+    background:white;
+    color:black;
+}
+
+.footer{
+    margin-top:60px;
+    color:#777;
+    font-size:.9rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <img src="images/logo1.png" alt="KartGenes" class="logo">
+
+    <h1>Welcome To KartGenes</h1>
+
+    <div class="tagline">
+        Performance Requires Patience
+    </div>
+
+    <div class="message">
+
+        Thank you for joining the KartGenes Community.
+
+        <br><br>
+
+        You are now part of a growing network of drivers,
+        racing families, builders and competitors committed
+        to long-term development and continuous improvement.
+
+        <br><br>
+
+        See you at the track.
+
+    </div>
+
+    <div class="button-group">
+
+        <a href="https://kartgenes.com" class="btn btn-primary">
+            Return To KartGenes
+        </a>
+
+        <a href="mailto:kris@kartgenes.com" class="btn btn-secondary">
+            Contact Operations
+        </a>
+
+    </div>
+
+    <div class="footer">
+        © 2026 KartGenes
+    </div>
+
+</div>
+
+</body>
+</html>
